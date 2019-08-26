@@ -14,6 +14,7 @@ const Q_DELIVERY = gql`
                 name
             }
             date
+            status
             products {
                 _id
                 description

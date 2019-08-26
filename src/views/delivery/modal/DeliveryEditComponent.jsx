@@ -13,8 +13,6 @@ class DeliveryEditComponent extends React.Component {
         this.setState({
             visible: true,
             ...this.props.delivery,
-            products: this.props.products,
-            carriers: this.props.carriers,
         })
     }
 
@@ -56,14 +54,12 @@ class DeliveryEditComponent extends React.Component {
     }
 
     onSave = () => {
-        const { _id, address, carrier, date, status, productsInsert, description } = this.state
+        const { _id, address, date, status, description } = this.state
         this.props.onEdit({
             _id,
             address,
-            carrier,
             date,
             status,
-            products: productsInsert,
             description,
         }).then(() => {
             this.onClose()
@@ -94,8 +90,8 @@ class DeliveryEditComponent extends React.Component {
                         </Row>
                         <Row>
                             <Col span={12}>
-                                <Form.Item label="Entregador:">
-                                    <Select value={status} placeholder="Selecione o entregador" onSelect={(value, event) => this.onChangeStatus(value, event)}>
+                                <Form.Item label="Estado:">
+                                    <Select value={status} placeholder="Selecione estado" onSelect={(value, event) => this.onChangeStatus(value, event)}>
                                         <Option key='delivered' value='delivered'>Entregue</Option>
                                         <Option key='pending' value='pending'>Pendente</Option>
                                     </Select>
