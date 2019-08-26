@@ -34,7 +34,7 @@ export default compose(
         search: {
             mutation: M_SEARCH,
             refetchQueries: (mutationResult) => [
-                { query: Q_DELIVERY, args: {} }
+                { query: Q_DELIVERY, args: mutationResult.data.createDelivery }
             ]
         },
 
