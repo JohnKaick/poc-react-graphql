@@ -35,7 +35,7 @@ class DeliveryContainer extends React.Component {
         })
     }
 
-    onInsert = async (form) => {
+    onInsert = async () => {
         const { address, carrier, date, productsInsert, description } = this.state
         await this.props.insert({
             variables: {

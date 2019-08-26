@@ -66,7 +66,7 @@ const DeliveryComponent = ({
                 <Col>
                     <Title level={3}>
                         Entregas
-                        <small style={styles.headerProduct}> {deliveries.total ? deliveries.total : 0} cadastrados</small>
+                        <small style={styles.headerProduct}> {deliveries ? deliveries.total : 0} cadastrados</small>
                         <Divider style={styles.dividirHeader} />
                     </Title>
                 </Col>
@@ -83,7 +83,7 @@ const DeliveryComponent = ({
                         </Row>
                         <Row>
                             <Col span={12}>
-                                <Form.Item label="Entregador">
+                                <Form.Item label="Entregador:">
                                     <Select value={carrier} placeholder="Selecione o entregador" onSelect={(value, event) => onChangeCarrier(value, event)}>
                                         {(carriers || []).map((c, i) => (
                                             <Option key={i} value={c._id}>{c.name}</Option>

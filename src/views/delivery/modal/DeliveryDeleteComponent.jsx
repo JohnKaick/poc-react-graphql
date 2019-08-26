@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal, Typography } from 'antd'
 const { Paragraph } = Typography;
 
-class ProductDeleteComponent extends React.Component {
+class DeliveryDeleteComponent extends React.Component {
 
     state = {
         visible: false
@@ -11,7 +11,7 @@ class ProductDeleteComponent extends React.Component {
     onOpen = () => {
         this.setState({
             visible: true,
-            ...this.props.product
+            ...this.props.delivery
         })
     }
 
@@ -28,12 +28,12 @@ class ProductDeleteComponent extends React.Component {
 
     render() {
         const { children } = this.props
-        const { visible, description } = this.state
+        const { visible, address } = this.state
         return (
             <React.Fragment>
                 {children({ open: this.onOpen })}
                 <Modal
-                    title="Excluir Produto"
+                    title="Excluir Entrega"
                     visible={visible}
                     okType='danger'
                     okText='Sim'
@@ -43,7 +43,7 @@ class ProductDeleteComponent extends React.Component {
                 >
                     <Typography>
                         <Paragraph>
-                            Tem certeza que deseja excluir o produto {description}?
+                            Tem certeza que deseja excluir a entrega no endereço {address}?
                         </Paragraph>
                     </Typography>
                 </Modal>
@@ -52,4 +52,4 @@ class ProductDeleteComponent extends React.Component {
     }
 }
 
-export default ProductDeleteComponent;
+export default DeliveryDeleteComponent;
