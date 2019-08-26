@@ -1,4 +1,3 @@
-import React from 'react';
 import gql from 'graphql-tag'
 import { withQueryWrapper, withMutations } from '../../containers/helpers'
 import ProductContainer from './ProductContainer'
@@ -7,9 +6,12 @@ import { compose } from 'recompose'
 const Q_PRODUCT = gql`
   {
     products {
-        _id
-        description
-        price
+        all {
+            _id
+            description
+            price
+        }
+        total
     }
   }
 `
@@ -20,7 +22,7 @@ const M_INSERT = gql`
         _id
     }
   }
-`;
+`
 
 const M_EDIT = gql`
   mutation updateProduct($input: UpdateProductInput!) {
@@ -28,7 +30,7 @@ const M_EDIT = gql`
         _id
     }
   }
-`;
+`
 
 const M_DELETE = gql`
   mutation removeProduct($input: RemoveProductInput!) {
@@ -36,7 +38,7 @@ const M_DELETE = gql`
         _id
     }
   }
-`;
+`
 
 export default compose(
 

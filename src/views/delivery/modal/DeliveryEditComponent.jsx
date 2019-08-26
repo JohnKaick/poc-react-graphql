@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, Form, Input } from 'antd'
 
-class ProductEditComponent extends React.Component {
+class DeliveryEditComponent extends React.Component {
 
     state = {
         visible: false
@@ -10,7 +10,7 @@ class ProductEditComponent extends React.Component {
     onOpen = () => {
         this.setState({
             visible: true,
-            ...this.props.product
+            ...this.props.deliveries
         })
     }
 
@@ -63,4 +63,4 @@ class ProductEditComponent extends React.Component {
     }
 }
 
-export default ProductEditComponent;
+export default DeliveryEditComponent;

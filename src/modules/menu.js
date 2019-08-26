@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { PageHeader, Menu, Icon, Layout } from 'antd';
 const { Sider } = Layout;
 
@@ -28,14 +28,17 @@ class NavBar extends React.Component {
                             <Menu.Item key="1">
                                 <Icon theme='filled' type="home" />
                                 <span>Painel de entregas</span>
+                                <Link to='/' />
                             </Menu.Item>
                             <Menu.Item key="2">
                                 <Icon theme='filled' type="file" />
-                                <span>Entrega</span>
+                                <span>Entregas</span>
+                                <Link to='/entrega' />
                             </Menu.Item>
                             <Menu.Item key="3">
                                 <Icon theme='filled' type="golden" />
-                                <span>Produto</span>
+                                <span>Produtos</span>
+                                <Link to='/produto' />
                             </Menu.Item>
                         </Menu>
                     </Sider>

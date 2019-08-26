@@ -4,7 +4,7 @@ import ProductComponent from './ProductComponent'
 class ProductContainer extends React.Component {
 
     state = {
-        ...this.props.products
+        ...this.props.products,
     }
 
     onChange = (e, m) => {
@@ -53,10 +53,12 @@ class ProductContainer extends React.Component {
     }
 
     render() {
+        console.log({ ...this.props.products })
         return (
             <ProductComponent
                 {...this.props}
                 {...this.state}
+                {...this.props.products}
                 onChange={this.onChange}
                 onInsert={this.onInsert}
                 onEdit={this.onEdit}

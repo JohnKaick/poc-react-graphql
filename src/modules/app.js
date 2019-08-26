@@ -5,6 +5,7 @@ import environment from '../common/environment'
 
 import MenuView from '../modules/menu'
 import ProductView from '../views/product'
+import DeliveryView from '../views/delivery'
 
 class App extends React.Component {
     render() {
@@ -13,7 +14,8 @@ class App extends React.Component {
                 <BrowserRouter>
                     <MenuView />
                     <Switch>
-                        <Route path='/' component={ProductView} exact />
+                        <Route path='/' component={DeliveryView} exact />
+                        <Route path='/produto' component={ProductView} exact />
                         <Redirect path='/' />
                     </Switch>
                 </BrowserRouter>

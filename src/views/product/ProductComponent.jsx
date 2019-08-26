@@ -1,79 +1,8 @@
 import React from 'react'
-import { Row, Col, Layout, Divider, Form, Input, Button, Card, Avatar, Icon } from 'antd';
-import ProductEditComponent from './modal/ProductEditComponent'
-import ProductDeleteComponent from './modal/ProductDeleteComponent'
-
-const ProductComponent = ({
-    description,
-    price,
-    products,
-    amountProduct,
-    onChange,
-    onInsert,
-    onEdit,
-    onDelete,
-}) => (
-        <Layout style={styles.layout}>
-            <Row>
-                <Col>
-                    <h1>
-                        Produtos
-                        <small style={styles.headerProduct}> {amountProduct ? amountProduct : 0} cadastrados</small>
-                        <Divider style={styles.dividirHeader} />
-                    </h1>
-                </Col>
-            </Row>
-            <Row type="flex" justify="center">
-                <Col span={10}>
-                    <Form>
-                        <Col span={18}>
-                            <Form.Item label="Descrição:" vertical>
-                                <Input placeholder="Digite a descrição do produto" name='description' value={description} onChange={onChange} />
-                            </Form.Item>
-                        </Col>
-                        <Col span={6}>
-                            <Form.Item label="Preço:" vertical>
-                                <Input placeholder="Ex.: R$ 99,99" name='price' value={price} onChange={onChange} />
-                            </Form.Item>
-                        </Col>
-                    </Form>
-                    <Button block style={styles.buttonSave} onClick={onInsert}>Salvar</Button>
-                </Col>
-            </Row>
-            <Row type="flex" justify="center">
-                <Col span={10}>
-                    <Card title="Lista de produtos" style={styles.cardProduct}>
-                        {(products || []).map((p, i) => (
-                            <div key={i}>
-                                <Row>
-                                    <Col span={3}>
-                                        <Avatar shape="square" size="large" style={styles.avatarProduct}>1</Avatar>
-                                    </Col>
-                                    <Col span={16}>
-                                        <b>{p.description}</b>
-                                        <p>{p.price}</p>
-                                    </Col>
-                                    <Col span={5}>
-                                        <ProductEditComponent product={p} onEdit={onEdit}>
-                                            {({ open }) => (
-                                                <Icon type="edit" theme="filled" style={styles.iconProduct} onClick={open} />
-                                            )}
-                                        </ProductEditComponent>
-                                        <ProductDeleteComponent product={p} onDelete={onDelete}>
-                                            {({ open }) => (
-                                                <Icon type="delete" theme="filled" style={styles.iconProduct} onClick={open} />
-                                            )}
-                                        </ProductDeleteComponent>
-                                    </Col>
-                                </Row>
-                                <Divider />
-                            </div>
-                        ))}
-                    </Card>
-                </Col>
-            </Row>
-        </Layout >
-    )
+import { Row, Col, Layout, Divider, Form, Input, Button, Card, Avatar, Icon, Typography, List } from 'antd';
+import ProductEditComponent from './modal/ProductEditComponent';
+import ProductDeleteComponent from './modal/ProductDeleteComponent';
+const { Title } = Typography;
 
 const styles = {
     layout: {
@@ -92,7 +21,7 @@ const styles = {
         background: 'green',
     },
     cardProduct: {
-        margin: 30,
+        marginTop: 30
     },
     avatarProduct: {
         color: 'white',
@@ -101,6 +30,93 @@ const styles = {
     iconProduct: {
         fontSize: 20,
         margin: 10
+    },
+    rowProduct: {
+        borderBottom: '1px solid rgb(0, 0, 0, 0.20)',
+        margin: -24,
+    },
+    listProduct: {
+        marginLeft: 24,
+        marginTop: 24,
+        marginBottom: 0,
     }
 }
+
+const ProductComponent = ({
+    description,
+    price,
+    all,
+    total,
+    onChange,
+    onInsert,
+    onEdit,
+    onDelete,
+}) => (
+        <Layout style={styles.layout}>
+            <Row>
+                <Col>
+                    <Title level={3}>
+                        Produtos
+                        <small style={styles.headerProduct}> {total ? total : 0} cadastrados</small>
+                        <Divider style={styles.dividirHeader} />
+                    </Title>
+                </Col>
+            </Row>
+            <Row type="flex" justify="center">
+                <Col span={10}>
+                    <Form>
+                        <Col span={17}>
+                            <Form.Item label="Descrição:" vertical>
+                                <Input placeholder="Digite a descrição do produto" name='description' value={description} onChange={onChange} />
+                            </Form.Item>
+                        </Col>
+                        <Col span={6} offset={1}>
+                            <Form.Item label="Preço:" vertical>
+                                <Input placeholder="Ex.: R$ 99,99" name='price' value={price} onChange={onChange} />
+                            </Form.Item>
+                        </Col>
+                    </Form>
+                    <Button block style={styles.buttonSave} onClick={onInsert}>Salvar</Button>
+                </Col>
+            </Row>
+            <Row type="flex" justify="center">
+                <Col span={10}>
+                    <Card title="Lista de produtos" style={styles.cardProduct}>
+                        {all && all.length !== 0 ? (
+                            <div>
+                                {(all || []).map((p, i) => (
+                                    <div key={i} style={styles.rowProduct}>
+                                        <List.Item style={styles.listProduct}>
+                                            <Col span={3}>
+                                                <Avatar shape="square" size="large" style={styles.avatarProduct}>{i + 1}</Avatar>
+                                            </Col>
+                                            <Col span={16}>
+                                                <b>{p.description}</b>
+                                                <p>R$ {p.price}</p>
+                                            </Col>
+                                            <Col span={5}>
+                                                <ProductEditComponent product={p} onEdit={onEdit}>
+                                                    {({ open }) => (
+                                                        <Icon type="edit" theme="filled" style={styles.iconProduct} onClick={open} />
+                                                    )}
+                                                </ProductEditComponent>
+                                                <ProductDeleteComponent product={p} onDelete={onDelete}>
+                                                    {({ open }) => (
+                                                        <Icon type="delete" theme="filled" style={styles.iconProduct} onClick={open} />
+                                                    )}
+                                                </ProductDeleteComponent>
+                                            </Col>
+                                        </List.Item>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                                <b>Nenhum produto cadastrado</b>
+                            )}
+                    </Card>
+                </Col>
+            </Row>
+        </Layout >
+    )
+
 export default ProductComponent
