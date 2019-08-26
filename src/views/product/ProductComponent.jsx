@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Layout, Divider, Form, Input, Button, Card, Avatar, Icon, Typography, List } from 'antd';
+import { Row, Col, Layout, Divider, Form, Input, Button, Card, Avatar, Icon, Typography, List, Alert } from 'antd';
 import ProductEditComponent from './modal/ProductEditComponent';
 import ProductDeleteComponent from './modal/ProductDeleteComponent';
 const { Title } = Typography;
@@ -45,6 +45,7 @@ const styles = {
 const ProductComponent = ({
     description,
     price,
+    msgError,
     all,
     total,
     onChange,
@@ -76,6 +77,15 @@ const ProductComponent = ({
                             </Form.Item>
                         </Col>
                     </Form>
+                </Col>
+            </Row>
+            <Row type="flex" justify="center">
+                <Col span={10}>
+                    <div>
+                        {msgError && (
+                            <Alert message={msgError} type="error" />
+                        )}
+                    </div>
                     <Button block style={styles.buttonSave} onClick={onInsert}>Salvar</Button>
                 </Col>
             </Row>

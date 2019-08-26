@@ -5,7 +5,12 @@ class DeliveryContainer extends React.Component {
 
     state = {
         ...this.props,
-        productsInsert: []
+        address: '',
+        carrier: null,
+        productsInsert: [],
+        date: '',
+        description: '',
+        msgError: null
     }
 
     onChange = (e, m) => {
@@ -37,25 +42,39 @@ class DeliveryContainer extends React.Component {
 
     onInsert = async () => {
         const { address, carrier, date, productsInsert, description } = this.state
-        await this.props.insert({
-            variables: {
-                input: {
-                    address,
-                    carrier,
-                    date,
-                    products: productsInsert,
-                    description
+        this.setState({ msgError: null })
+        if (address === '') {
+            this.setState({ msgError: 'Por favor, preencher o endereço' })
+        } else if (!carrier) {
+            this.setState({ msgError: 'Por favor, selecione o entregador' })
+        } else if (date.includes('_')) {
+            this.setState({ msgError: 'Por favor, informe a data de entrega corretamente' })
+        } else if (productsInsert.length === 0) {
+            this.setState({ msgError: 'Por favor, selecione os produtos' })
+        } else if (description === '') {
+            this.setState({ msgError: 'Por favor, descreva algo sobre a entrega' })
+        } else {
+            await this.props.insert({
+                variables: {
+                    input: {
+                        address,
+                        carrier,
+                        date,
+                        products: productsInsert,
+                        description
+                    }
                 }
-            }
-        }).then(() => {
-            this.setState({
-                address: '',
-                carrier: null,
-                date: '',
-                productsInsert: [],
-                description: ''
+            }).then(() => {
+                this.setState({
+                    address: '',
+                    carrier: null,
+                    date: '',
+                    productsInsert: [],
+                    description: '',
+                    msgError: null
+                })
             })
-        })
+        }
     }
 
     onEdit = async (delivery) => {

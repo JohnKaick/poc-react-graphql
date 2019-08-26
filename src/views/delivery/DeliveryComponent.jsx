@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Layout, Divider, Form, Input, Button, Typography, Card, Avatar, Icon, Select, List } from 'antd';
+import { Row, Col, Layout, Divider, Form, Input, Button, Typography, Card, Avatar, Icon, Select, List, Alert } from 'antd';
 import InputDate from '../../components/InputDate'
 import DeliveryEditComponent from './modal/DeliveryEditComponent';
 import DeliveryDeleteComponent from './modal/DeliveryDeleteComponent';
@@ -48,6 +48,7 @@ const DeliveryComponent = ({
     address,
     date,
     description,
+    msgError,
     carrier,
     productsInsert,
     deliveries,
@@ -118,7 +119,16 @@ const DeliveryComponent = ({
                             </Col>
                         </Row>
                     </Form>
-                    <Button block style={styles.buttonSave} onClick={onInsert}>Salvar</Button>
+                    <Row>
+                        <Col>
+                            <div>
+                                {msgError && (
+                                    <Alert message={msgError} type="error" />
+                                )}
+                            </div>
+                        </Col>
+                        <Button block style={styles.buttonSave} onClick={onInsert}>Salvar</Button>
+                    </Row>
                 </Col>
                 <Col span={11}>
                     <Card title="Entregas" style={styles.cardDelivery}>

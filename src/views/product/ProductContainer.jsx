@@ -5,6 +5,9 @@ class ProductContainer extends React.Component {
 
     state = {
         ...this.props.products,
+        description: '',
+        price: '',
+        msgError: null,
     }
 
     onChange = (e, m) => {
@@ -15,19 +18,27 @@ class ProductContainer extends React.Component {
 
     onInsert = async (e) => {
         const { description, price } = this.state
-        await this.props.insert({
-            variables: {
-                input: {
-                    description,
-                    price
+        this.setState({ msgError: null })
+        if (description === '') {
+            this.setState({ msgError: 'Por favor, preencher a descrição' })
+        } else if (price === '') {
+            this.setState({ msgError: 'Por favor, preencher o preço' })
+        } else {
+            await this.props.insert({
+                variables: {
+                    input: {
+                        description,
+                        price
+                    }
                 }
-            }
-        }).then(() => {
-            this.setState({
-                description: '',
-                price: ''
+            }).then(() => {
+                this.setState({
+                    description: '',
+                    price: '',
+                    msgError: null
+                })
             })
-        })
+        }
     }
 
     onEdit = async (product) => {
